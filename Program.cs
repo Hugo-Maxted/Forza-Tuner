@@ -5,15 +5,15 @@ namespace Forza_Tuner {
         static public int front = 0;
         static public string type = "race";
 
-        static float Percentage(float max, float min) {
-            return (((max - min) * ((float) front / 100)) + min);
+        static double Percentage(float max, float min, bool inverse) {
+            return Math.Round((((max - min) * (inverse ? (1 - ((float) front / 100)) : ((float) front / 100))) + min), 1);
         }
 
         static void Main(string[] args) {
             Console.Write("Front (%): ");
             front = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Car Type (rally, race, offroad): ");
+            Console.Write("Car use (road, dirt, offroad): ");
             type = Console.ReadLine();
 
             Console.WriteLine("Differential Settings:");
@@ -26,42 +26,43 @@ namespace Forza_Tuner {
             Console.WriteLine("  Center: 70%");
 
             Console.WriteLine("Brake:");
-            Console.WriteLine("  Position: " + front + "%");
-            Console.WriteLine("  Force: 100%");
+            Console.WriteLine("  Balance: " + front + "%");
+            Console.WriteLine("  Pressure: 100%");
 
             Console.WriteLine("Aero:");
             Console.WriteLine("  Front Spliter: Max");
             Console.WriteLine("  Rear Wing: Max");
 
             Console.WriteLine("Damping:");
-            Console.Write("Max Front: ");
-            float dampingMax = float.Parse(Console.ReadLine());
-            Console.Write("Min Front: ");
-            float dampingMin = float.Parse(Console.ReadLine());
-            Console.WriteLine("  Front: " + Percentage(dampingMax, dampingMin));
-            Console.WriteLine("  Rear: " + Percentage(dampingMax, dampingMin));
-            Console.WriteLine("  Front: " + Percentage(dampingMax, dampingMin) * 0.7);
-            Console.WriteLine("  Rear: " + Percentage(dampingMax, dampingMin) * 0.7);
+            Console.WriteLine("  Rebound:");
+            Console.WriteLine("    Front: " + Percentage(20, 3, false));
+            Console.WriteLine("    Rear: " + Percentage(20, 3, true));
+            Console.WriteLine("  Bump:");
+            Console.WriteLine("    Front: " + Percentage(20, 3, false) * 0.7);
+            Console.WriteLine("    Rear: " + Percentage(20, 3, true) * 0.7);
 
             Console.WriteLine("Springs:");
-            Console.Write("Max Front: ");
-            float springsMax = float.Parse(Console.ReadLine());
-            Console.Write("Min Front: ");
-            float springMin = float.Parse(Console.ReadLine());
-            Console.WriteLine("  Front: " + Percentage(springsMax, springMin));
-            Console.WriteLine("  Rear: " + Percentage(springsMax, springMin));
-            Console.WriteLine("  Front: " + type == "offroad" ? "Max" : "Min");
-            Console.WriteLine("  Rear: " + type == "offroad" ? "Max" : "Min");
+            Console.WriteLine("  Springs:");
+            Console.Write("    Front Maximum: ");
+            float max = float.Parse(Console.ReadLine());
+            Console.Write("    Front Minimum: ");
+            float min = float.Parse(Console.ReadLine());
+            Console.WriteLine("    Front: " + Percentage(max, min, false));
+            Console.WriteLine("    Rear: " + Percentage(max, min, true));
+            Console.WriteLine("  Height:");
+            Console.WriteLine("    Front: " + (type == "offroad" ? "Max" : "Min"));
+            Console.WriteLine("    Rear: " + (type == "offroad" ? "Max" : "Min"));
 
             Console.WriteLine("Anti Rollbars:");
-            Console.WriteLine("  Front: " + Percentage(65, 1));
-            Console.WriteLine("  Front: " + Percentage(65, 1));
+            Console.WriteLine("  Front: " + Percentage(65, 1, false));
+            Console.WriteLine("  Front: " + Percentage(65, 1, true));
 
             Console.WriteLine("Alignment: Stock");
 
             Console.WriteLine("Gearing: Adjust final drive till all gears just fit on graph");
 
             Console.WriteLine("Tires: Stock");
+
             Console.ReadLine();
         }
     }
