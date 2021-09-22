@@ -50,13 +50,8 @@ namespace Forza_Tuner {
             float springMin = float.Parse(Console.ReadLine());
             Console.WriteLine("  Front: " + Percentage(springsMax, springMin));
             Console.WriteLine("  Rear: " + Percentage(springsMax, springMin));
-            if (type == "offroad") {
-                Console.WriteLine("  Front: Max");
-                Console.WriteLine("  Rear: Max");
-            } else {
-                Console.WriteLine("  Front: Min");
-                Console.WriteLine("  Rear: Min");
-            }
+            Console.WriteLine("  Front: " + type == "offroad" ? "Max" : "Min");
+            Console.WriteLine("  Rear: " + type == "offroad" ? "Max" : "Min");
 
             Console.WriteLine("Anti Rollbars:");
             Console.WriteLine("  Front: " + Percentage(65, 1));
@@ -67,6 +62,7 @@ namespace Forza_Tuner {
             Console.WriteLine("Gearing: Adjust final drive till all gears just fit on graph");
 
             Console.WriteLine("Tires: Stock");
+            Console.ReadLine();
         }
     }
 }
