@@ -66,37 +66,45 @@ const calcValue: (car: carType, setting: string) => string = (car: carType, sett
     default:
       return "";
   }
-}
+};
 
-const Setting: (props: { car: carType, setting: string }) => JSX.Element = (props: { car: carType, setting: string }): JSX.Element => {
+const Setting: (props: {car: carType; setting: string}) => JSX.Element = (props: {car: carType; setting: string}): JSX.Element => {
   switch (props.setting) {
     case "differential":
       switch (props.car.drivetrain) {
         case "fwd":
-          return <>
-            <h4>Front:</h4>
-            <h5>Acceleration: {calcValue(props.car, "dif.front.acc")}</h5>
-            <h5>Deceleration: {calcValue(props.car, "dif.front.dec")}</h5>
-          </>
+          return (
+            <>
+              <h4>Front:</h4>
+              <h5>Acceleration: {calcValue(props.car, "dif.front.acc")}</h5>
+              <h5>Deceleration: {calcValue(props.car, "dif.front.dec")}</h5>
+            </>
+          );
         case "rwd":
-          return <>
-            <h4>Front:</h4>
-            <h5>Acceleration: {calcValue(props.car, "dif.front.acc")}</h5>
-            <h5>Deceleration: {calcValue(props.car, "dif.front.dec")}</h5>
-            <h4>Center: {calcValue(props.car, "dif.center")}</h4>
-            <h4>Rear:</h4>
-            <h5>Acceleration: {calcValue(props.car, "dif.rear.acc")}</h5>
-            <h5>Deceleration: {calcValue(props.car, "dif.rear.dec")}</h5></>
+          return (
+            <>
+              <h4>Front:</h4>
+              <h5>Acceleration: {calcValue(props.car, "dif.front.acc")}</h5>
+              <h5>Deceleration: {calcValue(props.car, "dif.front.dec")}</h5>
+              <h4>Center: {calcValue(props.car, "dif.center")}</h4>
+              <h4>Rear:</h4>
+              <h5>Acceleration: {calcValue(props.car, "dif.rear.acc")}</h5>
+              <h5>Deceleration: {calcValue(props.car, "dif.rear.dec")}</h5>
+            </>
+          );
         case "awd":
-          return <>
-            <h4>Rear:</h4>
-            <h5>Acceleration: {calcValue(props.car, "dif.rear.acc")}</h5>
-            <h5>Deceleration: {calcValue(props.car, "dif.rear.dec")}</h5></>
+          return (
+            <>
+              <h4>Rear:</h4>
+              <h5>Acceleration: {calcValue(props.car, "dif.rear.acc")}</h5>
+              <h5>Deceleration: {calcValue(props.car, "dif.rear.dec")}</h5>
+            </>
+          );
       }
-    default:  
-    return <div></div>
+    default:
+      return <div></div>;
   }
-}
+};
 
 const App: () => JSX.Element = (): JSX.Element => {
   const [type, setType] = React.useState<carType>({
